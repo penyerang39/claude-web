@@ -17,7 +17,7 @@ A userscript that seamlessly integrates Claude AI responses directly into your G
 ## Installation
 
 1. Install a userscript manager like [Tampermonkey](https://www.tampermonkey.net/)
-2. Copy the script into a new userscript file in the manager's dashboard.
+2. Copy the main.js script into a new userscript file in the manager's dashboard.
 3. Get your Claude API key from [Anthropic](https://www.anthropic.com/)
 4. Click the ⚙️ icon in the Claude results panel to configure your API key
 
