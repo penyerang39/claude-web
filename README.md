@@ -1,8 +1,7 @@
 # Claude AI in Google Search
+![image](https://github.com/user-attachments/assets/1198fc49-a85e-436e-9b03-3ff7fb60eae9)
 
 A userscript that seamlessly integrates Claude AI responses directly into your Google search results.
-
-![Claude AI in Google Search](screenshot.png) *(You'll need to add a screenshot)*
 
 ## Features
 
