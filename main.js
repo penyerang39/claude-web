@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Claude AI in Google Search
-// @namespace    http://tampermonkey.net/
-// @version      0.2.0
+// @namespace    https://github.com/penyerang39/claude-web
+// @version      0.3.0
 // @description  Adds Claude AI responses alongside Google search results
-// @author       Your Name
+// @author       Bogdanovich
 // @match        https://google.com/*
 // @match        https://www.google.com/*
 // @icon         https://www.anthropic.com/favicon.ico
@@ -30,82 +30,75 @@
     const HISTORY_KEY = 'claude_query_history';
 
     // Google-matching styles
-    const STYLES = `
-        #${RESULTS_DIV_ID} {
-            font-family: arial,sans-serif;
-            margin-bottom: 30px;
-            background: var(--rhs-background, #fff);
-            border: 1px solid var(--border-color, #dfe1e5);
-            border-radius: 8px;
-        }
-        @media (prefers-color-scheme: dark) {
-            #${RESULTS_DIV_ID} {
-                background: var(--rhs-background, #202124);
-                border-color: var(--border-color, #3c4043);
-                color: var(--text-color, #bdc1c6);
-            }
-        }
-        .claude-container {
-            padding: 6px 16px 16px; // should match google's design
-        }
-        .claude-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 6px;
-            font-family: Google Sans,arial,sans-serif;
-            font-size: 14px;
-        }
-        .claude-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-color, #ffffff);
-        }
-        .claude-settings {
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50%;
-            color: var(--secondary-text, #70757a);
-        }
-        .claude-settings:hover {
-            background: var(--hover-bg, #f1f3f4);
-        }
-        .claude-response {
-            font-size: 14px;
-            line-height: 1.58;
-            color: var(--text-color, #ffffff);
-            white-space: pre-wrap;
-        }
-        .claude-loading {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--secondary-text, #70757a);
-            font-size: 14px;
-        }
-        .loading-spinner {
-            width: 16px;
-            height: 16px;
-            border: 2px solid var(--secondary-text, #70757a);
-            border-top: 2px solid transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        .claude-error {
-            color: #d93025;
-            background: var(--error-bg, #fce8e6);
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 8px;
-            font-size: 14px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    `;
-
+const STYLES = `
+    #${RESULTS_DIV_ID} {
+        font-family: arial,sans-serif;
+        margin-bottom: 30px;
+        background-color: Canvas;
+        color: CanvasText;
+        border: 1px solid CanvasText;
+        border-radius: 8px;
+    }
+    .claude-container {
+        padding: 6px 16px 16px;
+    }
+    .claude-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        font-family: Google Sans,arial,sans-serif;
+        font-size: 14px;
+    }
+    .claude-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: CanvasText;
+    }
+    .claude-settings {
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        color: GrayText;
+    }
+    .claude-settings:hover {
+        background: color-mix(in srgb, CanvasText 10%, transparent);
+    }
+    .claude-response {
+        font-size: 14px;
+        line-height: 1.58;
+        color: CanvasText;
+        white-space: pre-wrap;
+    }
+    .claude-loading {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: GrayText;
+        font-size: 14px;
+    }
+    .loading-spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid GrayText;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    .claude-error {
+        color: rgb(217, 48, 37);
+        background: color-mix(in srgb, rgb(217, 48, 37) 10%, Canvas);
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 8px;
+        font-size: 14px;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+`;
     // Configuration setup
     const gmc = new GM_config({
         id: 'ClaudeGoogleConfig',
